@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+
+  # REF: https://hub.docker.com/r/netdata/netdata
+  netdata:
+    image: netdata/netdata:v1.13.0-armhf
+    hostname: netdata
+    environment:
+      - PGID=996
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    ports:
+      # netdata unencrypted UDP 19999
+      - mode: host
+        target: 19999
+        published: 19999
+        protocol: tcp
+    networks:
+      - netdata-stack-net1
+    volumes:
+      - type: bind
+        source: /opt/netdata/etc/netdata/netdata.conf
+        target: /etc/netdata/netdata.conf
+      - type: bind
+        source: /proc
+        target: /host/proc
+        read_only: true
+      - type: bind
+        source: /sys
+        target: /host/sys
+        read_only: true
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    deploy:
+      labels:
+        local.description: "netdata"
+      restart_policy:
+        condition: on-failure
+
+networks:
+  netdata-stack-net1:
