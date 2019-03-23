@@ -34,6 +34,7 @@ docker ps
 # http://YourPiIPAddressHere:8888
 #docker stack rm netdata-stack
 #rm -Rf /opt/netdata
+#docker system prune -af
 ###############################################################################
 
 
@@ -86,17 +87,18 @@ chmod -R a+rw /opt/netdata
 # Deploy #
 ##########
 
-Swarm mode currently not supported for cap_add
-https://github.com/moby/moby/pull/38380
-
-Can still use docker-compose.yml without Swarm mode
+# Swarm mode currently not supported for cap_add - https://github.com/moby/moby/pull/38380
+# Can still use docker-compose.yml without Swarm mode:
 sudo -u root bash
 cd /opt/docker-compose/docker-raspberry-pi-netdata
 docker-compose up
 docker-compose up -d
+docker ps
 docker-compose down
 
 
+
+# FUTURE:
 # Deploy the stack into a Docker Swarm
 #sudo -u root bash
 #docker stack deploy -c docker-compose.yml netdata-stack
