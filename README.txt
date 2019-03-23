@@ -75,6 +75,9 @@ docker rm netdata
 sudo -u root bash
 mkdir -p /opt/netdata/etc/netdata
 cp -n netdata.conf /opt/netdata/etc/netdata/netdata.conf
+touch /opt/netdata/etc/netdata/.opt-out-from-anonymous-statistics
+hostname -I | awk '{print "destination="$1":2003"}' >.env
+hostname -I | awk '{print "registry=http://"$1":1999"}' >>.env
 chmod -R a+rw /opt/netdata
 ###############################################################################
 
