@@ -37,6 +37,7 @@ services:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
+    restart: always
     deploy:
       labels:
         local.description: "netdata"
