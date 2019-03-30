@@ -96,6 +96,11 @@ docker-compose up -d
 docker ps
 docker-compose down
 
+# Use systemctl to start docker-compose-netdata as a work-around
+cp /opt/docker-compose/docker-raspberry-pi-netdata/docker-compose-netdata.service /etc/systemd/system/docker-compose-netdata.service
+systemctl enable docker-compose-netdata
+systemctl start docker-compose-netdata
+
 
 
 # FUTURE:

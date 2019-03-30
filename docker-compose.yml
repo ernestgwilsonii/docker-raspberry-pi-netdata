@@ -41,7 +41,7 @@ services:
       labels:
         local.description: "netdata"
       restart_policy:
-        condition: on-failure
+        condition: always 
 
 networks:
   netdata-stack-net1:
