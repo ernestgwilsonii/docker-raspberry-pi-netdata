@@ -52,7 +52,8 @@ docker run -d --name=netdata \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   --cap-add SYS_PTRACE \
   --security-opt apparmor=unconfined \
-  netdata/netdata:v1.13.0-armhf
+  --restart always \
+  netdata/netdata:v1.15.0-armhf
 
 docker ps
 # Test: http://YourPiIPAddressHere:19999
